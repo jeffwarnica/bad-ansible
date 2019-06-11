@@ -1,0 +1,10 @@
+---
+# tasks file for ba_content
+- name: Ensure directory exists
+  file:
+    path: /usr/share/tomcat/webapps/ansible
+    state: directory
+- name: copy static index.html.j2 to tomcat webapps/ansible/index.html.j2
+  template:
+    src: index.html
+    dest: /usr/share/tomcat/webapps/ansible/index.html

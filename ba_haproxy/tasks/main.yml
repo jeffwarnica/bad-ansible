@@ -1,0 +1,28 @@
+---
+# tasks file for ba_haproxy
+#- name: http
+#  package:
+#    name: httpie
+#    state: latest
+- name: Install Packages
+  yum:
+    name: "{{packages}}"
+    state: latest
+    lock_timeout: 3000
+  vars:
+    packages:
+    - haproxy
+    - httpd
+  notify: restart_haproxy
+- name: enable HAProxy
+  service:
+    name: haproxy
+    state: started
+- name: configure haproxy
+  template:
+    src: ./haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+- name: restart_haproxy
+  service:
+    name: haproxy
+    state: restarted

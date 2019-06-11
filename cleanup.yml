@@ -30,8 +30,8 @@
         name: "{{ three_tier_packages }}"
         state: absent
 
-    - name: Remove index.html
+    - name: Remove index.html.j2
       file:
-        path: /tmp/index.html
+        path: /tmp/index.html.j2
         state: absent
 ...

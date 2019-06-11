@@ -1,0 +1,26 @@
+---
+# tasks file for ba_postgres
+- name: Install Progress
+  yum:
+    name: postgresql-server
+    state: latest
+- name: Enable Postgres at boot
+  service:
+    name: postgresql
+    enabled: yes
+
+- name: Check if PostgreSQL database is initialized.
+  stat:
+    path: "/var/lib/pgsql/data/PG_VERSION"
+  register: pgdata_dir_version
+
+- name: initilize postgres
+  command: postgresql-setup initdb
+  when: not pgdata_dir_version.stat.exists
+
+- name: initilize postgres some more
+  command: chkconfig postgresql on
+- name: start postgres
+  service:
+    name: postgresql.service
+    state: started
