@@ -1,4 +1,3 @@
----
 # tasks file for win_service_config
 ---
 - name: Install Windows package
